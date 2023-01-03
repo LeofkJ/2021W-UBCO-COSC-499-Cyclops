@@ -360,7 +360,7 @@ export class PageSpaceMePage implements OnInit {
           // item.weight = 1;//tentative
           //we have this solution attended by our user
           // console.log(this.scoreArea, 'adds', item.star, ecoAttendItem.weight, 'from', item.name);
-          this.addScore(item.star, ecoAttendItem.weight);//add up the new weights to the ecotracker
+          this.addScore(item.star, ecoAttendItem.weight);//add up the new weights to the actiontracker
           break;
           //as there should only be one match for the whole list, we can break here to save some computations
         }

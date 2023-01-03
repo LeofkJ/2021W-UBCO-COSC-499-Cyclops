@@ -32,7 +32,7 @@ const routes: Routes = [
         loadChildren: () => import('../page-space-me/page-space-me.module').then(m => m.PageSpaceMePageModule)
       },
       {
-        path: 'EcoTracker',
+        path: 'ActionTracker',
         loadChildren: () => import('../page-space-su/page-space-su.module').then(m => m.PageSpaceSuPageModule)
       },
       {

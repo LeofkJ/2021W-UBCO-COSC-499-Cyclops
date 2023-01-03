@@ -197,7 +197,7 @@ export class PageSpaceSuPage implements OnInit {
           // item.weight = 1;//tentative
           //we have this solution attended by our user
           // console.log(this.scoreArea, 'adds', item.star, ecoAttendItem.weight, 'from', item.name);
-          this.addScore(item.star, ecoAttendItem.weight);//add up the new weights to the ecotracker
+          this.addScore(item.star, ecoAttendItem.weight);//add up the new weights to the actiontracker
           break;
           //as there should only be one match for the whole list, we can break here to save some computations
         }
@@ -342,7 +342,6 @@ export class PageSpaceSuPage implements OnInit {
       this.assignCompletedList();//update the card looking and the score as well
       this.updateDisplayList();
       this.updateUserTotalEcoScore();
-      this.alertMessage("Successful");
       this.localWeightUpdate(solutionWeight, solutionId);//update this score to localSol
     }).catch((error) => {
       console.log(error);
@@ -531,7 +530,7 @@ export class PageSpaceSuPage implements OnInit {
   async removeCard(id) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      message: 'Do you want to remove this Eco Tracker Solution? This action cannot be undone.',
+      message: 'Do you want to remove this Action Tracker Solution? This action cannot be undone.',
       buttons: ['Cancel', 'Yes']
     });
     await alert.present();

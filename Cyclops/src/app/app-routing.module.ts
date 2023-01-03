@@ -22,7 +22,7 @@ const routes: Routes = [
     loadChildren: () => import('./page-space-er/page-space-er.module').then(m => m.PageSpaceErPageModule)
   },
   {
-    path: 'EcoTracker',
+    path: 'ActionTracker',
     loadChildren: () => import('./page-space-su/page-space-su.module').then(m => m.PageSpaceSuPageModule)
   },
   {

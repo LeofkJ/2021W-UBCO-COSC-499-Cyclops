@@ -26,9 +26,9 @@ export class AppComponent {
       "icon": "reader",
       "name": "Articles"
     }, {
-      "link": "/tabs/EcoTracker",
+      "link": "/tabs/ActionTracker",
       "icon": "leaf",
-      "name": "Eco Tracker"
+      "name": "Action Tracker"
     }
   ]
   menuClick() {
