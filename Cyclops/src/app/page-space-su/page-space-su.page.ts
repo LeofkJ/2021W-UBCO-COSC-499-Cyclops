@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { FirebaseService } from '../FirebaseService/firebase.service';
 import { Observable, from, of } from 'rxjs'
 import { filter } from 'rxjs/operators';
-import { identifierModuleUrl } from '@angular/compiler';
 import { convertToViews } from '@ionic/core/dist/types/components/nav/view-controller';
 import { solutionItem, sectionList, ecoData } from '../sharedData/ecoData';
 import { AuthService } from '../authentication/auth/auth.service';

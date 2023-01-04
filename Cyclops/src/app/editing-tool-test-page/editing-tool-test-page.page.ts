@@ -158,7 +158,7 @@ export class EditingToolTestPagePage implements OnInit {
     this.checkedSolutions = [];//reset checked solutions 
     //checkedIds might be undefined or empty, only push content if it's defined or is not empty
 
-    if (this.checkedIds != undefined && this.checkedIds != []) {
+    if (this.checkedIds != undefined) {
       for (let i = 0; i < this.allSolutions.length; i++) {
         if (this.checkedIds.indexOf(this.allSolutions[i].id) != -1) {//add only solutions in checkedIds
           this.checkedSolutions.push(this.allSolutions[i]);

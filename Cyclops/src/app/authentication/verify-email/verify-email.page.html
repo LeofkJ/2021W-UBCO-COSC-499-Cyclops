@@ -13,12 +13,12 @@
   
         <div class="formGroup" >
           <p>We have sent a confirmation email.</p>
-          <p>Please check your email and click on the link to verfiy your email address.</p>
+          <p>Please check your email and click on the link to verify your email address.</p>
         </div>
         
         <!-- Calling SendVerificationMail() method using authService Api -->
         <div class="formGroup">
-          <p class="p1">Not received?</p>
+          <p class="p1">Not received? Make sure to check your spam folder. Otherwise: </p>
           <small *ngIf="block">{{timeLeft}} Seconds Left....</small>
           <ion-button type="button"  expand="block " [disabled]="block" (click)="authService.reSendVerificationMail()" (click)="this.resetTimeLeft()">
             
