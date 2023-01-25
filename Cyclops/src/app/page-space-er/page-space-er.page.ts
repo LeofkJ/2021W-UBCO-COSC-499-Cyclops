@@ -141,6 +141,7 @@ export class PageSpaceErPage implements OnInit {
               }
             }
             if (partialArticle == undefined) {//if still undefined then find the first unread article
+              readArticles.sort((a, b) => this.articles.find(x => x.docId === a.id).order - this.articles.find(x => x.docId === b.id).order); //Sort so that readArticles (which is stored in each user is sorted according to article order)
               for (let i = 0; i < readArticles.length; i++) {
                 if (readArticles[i].progress == "unread") {
                   this.readProgressHeader = "Explore a new article";
@@ -174,7 +175,8 @@ export class PageSpaceErPage implements OnInit {
           console.log('execute if latestReadUndefined')
           this.readProgressHeader = "Start reading";
           let readArticles = e.payload.data()['readArticles'];
-          this.latestRead = readArticles[0].id;
+          this.latestRead = this.articles[0].docId;
+          console.log(this.latestRead)
           this.firebaseService.getDataByIdService(this.latestRead).subscribe(
             res => {
               this.readProgressImg = res.payload.data()['image'];
@@ -216,9 +218,12 @@ export class PageSpaceErPage implements OnInit {
           image: e.payload.doc.data()['image'],
           title: e.payload.doc.data()['title'],
           subtitle: e.payload.doc.data()['subtitle'],
-          cardIntroduction: e.payload.doc.data()['cardIntroduction']
+          cardIntroduction: e.payload.doc.data()['cardIntroduction'],
+          order: e.payload.doc.data()['order'],
         }
       })
+      //TODO Order this based on order 
+      this.articles.sort((a, b) => a.order - b.order);
       console.log(this.articles);
     }, (err: any) => {
       console.log(err);
@@ -256,7 +261,8 @@ type content = {
   image: string,
   title: string,
   subtitle: string,
-  cardIntroduction: string
+  cardIntroduction: string,
+  order: number,
 }
 
 
