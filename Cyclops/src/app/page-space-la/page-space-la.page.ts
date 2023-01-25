@@ -5,6 +5,7 @@ import { displayArticles } from '../sharedData/displayArticles';
 import { AuthService } from '../authentication/auth/auth.service';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { ArticleSearchPagePage } from './article-search-page/article-search-page.page';
+import { solutionItem } from '../sharedData/ecoData';
 
 @Component({
   selector: 'app-page-space-la',
@@ -61,7 +62,10 @@ export class PageSpaceLaPage implements OnInit {
           subtitle: e.payload.doc.data()['subtitle'],
           segment: e.payload.doc.data()['segment'],
           cardIntroduction: e.payload.doc.data()['cardIntroduction'],
-          image: e.payload.doc.data()['image']
+          image: e.payload.doc.data()['image'],
+          solSegment: e.payload.doc.data()['solSegment'],
+          solutions: e.payload.doc.data()['solutions'],
+          order: e.payload.doc.data()['order'],
         }
       })
       console.log("Search Field Loaded",this.searchField);
@@ -78,6 +82,12 @@ export class PageSpaceLaPage implements OnInit {
         }
       }
       this.i = 0;
+      // Sort based on order parameter
+      this.articleCol[0].sort((a, b) => a.order - b.order);
+      this.articleCol[1].sort((a, b) => a.order - b.order); 
+      this.articleCol[2].sort((a, b) => a.order - b.order);
+
+
       console.log("independent data loaded!", this.articleCol);
     }, (err: any) => {
       console.log(err);
@@ -238,6 +248,9 @@ type fetchArticle = {
   segment: segmentItem[];
   columnName: string;
   image: string;
+  solSegment: number;
+  solutions: solutionItem[];
+  order: number;
   //we still need the columnName for displaying, columnName less than 0 means it is deleted
 }
 

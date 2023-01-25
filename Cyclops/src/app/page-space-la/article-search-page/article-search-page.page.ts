@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/FirebaseService/firebase.service';
 import { displayArticle, segmentItem } from 'src/app/sharedData/displayArticle';
 import { ModalController } from '@ionic/angular';
+import { solutionItem } from 'src/app/sharedData/ecoData';
 
 @Component({
   selector: 'app-article-search-page',
@@ -31,7 +32,9 @@ export class ArticleSearchPagePage implements OnInit {
           subtitle: e.payload.doc.data()['subtitle'],
           segment: e.payload.doc.data()['segment'],
           cardIntroduction: e.payload.doc.data()['cardIntroduction'],
-          image: e.payload.doc.data()['image']
+          image: e.payload.doc.data()['image'],
+          solSegment: e.payload.doc.data()['solSegment'],
+          solutions: e.payload.doc.data()['solutions'],
         }
       })
       console.log("Search Field Loaded", this.searchField);
@@ -85,6 +88,8 @@ type fetchArticle = {
   segment: segmentItem[];
   columnName: string;
   image: string;
+  solSegment: number;
+  solutions: solutionItem[];
   //we still need the columnName for displaying, columnName less than 0 means it is deleted
 }
 

@@ -7,6 +7,7 @@ import { ArticleEditPagePage } from '../article-edit-page/article-edit-page.page
 import { AuthService } from '../../authentication/auth/auth.service';
 import { ArticleImagePage } from '../article-image/article-image.page';
 import { deleteField } from 'firebase/firestore';
+import { solutionItem } from 'src/app/sharedData/ecoData';
 
 @Component({
   selector: 'app-article-main',
@@ -104,7 +105,9 @@ export class ArticleMainComponent implements OnInit {
       }, {
         segmentTitle: "Sample Title",
         segmentBody: `<p>Sample Body</p>`
-      }]
+      }],
+      solSegment: -1,
+      solutions: [],
     }
     this.contentCol.push(newArticle);
     //update all user profiles read article tracker with new article
@@ -187,4 +190,6 @@ type fetchArticle = {
   cardIntroduction: string;
   columnName: string;
   segment: segmentItem[];
+  solSegment: number;
+  solutions: solutionItem[];
 }
