@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'Articles',
+    path: 'Content',
     loadChildren: () => import('./page-space-la/page-space-la.module').then(m => m.PageSpaceLaPageModule)
   },
   {
@@ -26,11 +26,11 @@ const routes: Routes = [
     loadChildren: () => import('./page-space-su/page-space-su.module').then(m => m.PageSpaceSuPageModule)
   },
   {
-    path: 'SelectedArticles',
+    path: 'SelectedSections',
     loadChildren: () => import('./page-space-me/page-space-me.module').then(m => m.PageSpaceMePageModule)
   },
   {
-    path: 'tabs/SelectedArticle/:docId',
+    path: 'tabs/SelectedSection/:docId',
     loadChildren: () => import('./page-space-me/page-space-me.module').then(m => m.PageSpaceMePageModule)
   },
   {

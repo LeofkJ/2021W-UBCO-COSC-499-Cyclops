@@ -24,11 +24,11 @@ const routes: Routes = [
         loadChildren: () => import('../page-space-er/page-space-er.module').then(m => m.PageSpaceErPageModule)
       },
       {
-        path: 'Articles',
+        path: 'Content',
         loadChildren: () => import('../page-space-la/page-space-la.module').then(m => m.PageSpaceLaPageModule)
       },
       {
-        path: 'SelectedArticles',
+        path: 'SelectedSections',
         loadChildren: () => import('../page-space-me/page-space-me.module').then(m => m.PageSpaceMePageModule)
       },
       {

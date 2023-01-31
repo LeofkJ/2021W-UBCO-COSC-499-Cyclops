@@ -144,7 +144,7 @@ export class PageSpaceErPage implements OnInit {
               readArticles.sort((a, b) => this.articles.find(x => x.docId === a.id).order - this.articles.find(x => x.docId === b.id).order); //Sort so that readArticles (which is stored in each user is sorted according to article order)
               for (let i = 0; i < readArticles.length; i++) {
                 if (readArticles[i].progress == "unread") {
-                  this.readProgressHeader = "Explore a new article";
+                  this.readProgressHeader = "Explore new content";
                   partialArticle = readArticles[i];
                   console.log(partialArticle);
                   this.latestRead = partialArticle.id;

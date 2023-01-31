@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-title style="font-size: 150%;" *ngIf="!editMode">Articles</ion-title>
+        <ion-title style="font-size: 150%;" *ngIf="!editMode">Content</ion-title>
         <!-- <ion-button slot="start" class="ion-padding-start" (click)="exitEditMode()" *ngIf="editMode && this.authService.isAdmin()">
             <ion-icon name="chevron-back-outline"></ion-icon>
             <ion-label>&nbsp;&nbsp;Exit Edit</ion-label>
@@ -19,7 +19,7 @@
 
 <ion-content fullscreen>
     <div (click)="searchModalEvent()">
-        <ion-searchbar [(ngModel)]="userInput" placeholder="Search Article" showCancelButton="focus" cancelButtonText="Cancel" animated='true'></ion-searchbar>
+        <ion-searchbar [(ngModel)]="userInput" placeholder="Search Sections" showCancelButton="focus" cancelButtonText="Cancel" animated='true'></ion-searchbar>
     </div>
 
 
@@ -28,7 +28,7 @@
         <!-- <p>this is the requested field</p> -->
         <ion-list id='viewContentTest' *ngFor="let cardContent of dummySearchField  | filter:userInput ">
             <ion-item id="listItem" *ngIf="cardContent.columnName > 0">
-                <ion-card color='light' routerLink="/tabs/SelectedArticle/{{cardContent.id}}">
+                <ion-card color='light' routerLink="/tabs/SelectedSection/{{cardContent.id}}">
                     <ion-card-header>
                         <ion-card-subtitle>{{cardContent.subtitle}}</ion-card-subtitle>
                         <ion-card-title>{{cardContent.title}}</ion-card-title>
@@ -58,7 +58,7 @@
         <div class="readArticles" style="display: flex; flex-direction: column;align-items: flex-end;">
             <ion-item *ngIf="authService['isLoggedIn']">
                 <ion-label>
-                    <h2>Articles Read: {{finishedArticles}}/{{totalArticles}}</h2>
+                    <h2>Sections Read: {{finishedArticles}}/{{totalArticles}}</h2>
                 </ion-label>
                 <ion-progress-bar value="{{articleProgress}}"></ion-progress-bar>
             </ion-item>

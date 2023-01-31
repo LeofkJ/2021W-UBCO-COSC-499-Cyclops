@@ -22,9 +22,9 @@ export class AppComponent {
       "icon": "compass",
       "name": "Home"
     }, {
-      "link": "/tabs/Articles",
+      "link": "/tabs/Content",
       "icon": "reader",
-      "name": "Articles"
+      "name": "Content"
     }, {
       "link": "/tabs/ActionTracker",
       "icon": "leaf",
