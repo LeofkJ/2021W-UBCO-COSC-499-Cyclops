@@ -23,10 +23,10 @@ export class RegistrationPage implements OnInit {
         type:'required', message:'Password is required.'
       },
       {
-        type:'minlength', message:'Your password should be more than 6 character.'
+        type:'minlength', message:'Your password should be more than 6 characters.'
       },
       {
-        type:'maxlength', message:'Your password should be less than 20 character.'
+        type:'maxlength', message:'Your password should be less than 128 characters.'
       },
       /* {
         type:'pattern', message:'Should contains at least one letter and one number.'
@@ -45,11 +45,11 @@ export class RegistrationPage implements OnInit {
     this.signUpForm = new FormGroup({
       formEmail: new FormControl('',[
         Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       formPassword: new FormControl('',[
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(20),
+        Validators.maxLength(128),
         /* Validators.pattern("^(?=.*[a-zA-Z])(?=.*[0-9])") */
       ]),
       confirmFormPassword: new FormControl('', Validators.compose([
