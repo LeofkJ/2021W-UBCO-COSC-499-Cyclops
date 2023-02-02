@@ -386,6 +386,10 @@ export class PageSpaceSuPage implements OnInit {
       })
       this.localSol = this.solutions;
 
+      if (!this.authService.isLogin()) {
+        this.displaySol = this.localSol
+      }
+
       this.ecoListContentLoading();
       // this.userEcoItemList = this.userEcoItemList;
       this.sortTypeInitialize();

@@ -28,12 +28,12 @@
                         </div>
                         <div class="odisplay1" *ngIf="!this.authService.isLogin()">
                             <ion-text style="text-align:center; font-size:150%; font-weight: 700;">
-                                Please Login to Continue
-
-
-
+                                Please
                             </ion-text>
                             <ion-text style="text-align:center; font-size:150%; font-weight: 700;" button routerLink="/login" color="primary">Login</ion-text>
+                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;">
+                                to assess solutions and get a score
+                            </ion-text>
                         </div>
 
                     </div>
@@ -50,7 +50,8 @@
             <ion-progress-bar type="indeterminate"></ion-progress-bar>
         </ng-container>
 
-        <ng-container *ngIf="displaySol && this.authService.isLogin()">
+        <!-- <ng-container *ngIf="displaySol && this.authService.isLogin()"> -->
+        <ng-container *ngIf="displaySol">
             <ion-row>
 
                 <!-- desktop users -->
@@ -81,7 +82,7 @@
                         </ion-col>
                     </ion-row>
 
-                    <ion-row>
+                    <ion-row *ngIf="this.authService.isLogin()">
                         <ion-col>
                             <ion-radio-group [(ngModel)]="userProgressType" (ionChange)="updateDisplayList()">
                                 <ion-list-header>
@@ -280,7 +281,7 @@
                                 <!-- *ngIf="item.id != completedList[index]"  -->
                                 <!-- checkDisplay(item.ecoId) -->
                                 <!-- *ngIf="item.ecoId in completedList" -->
-                                <ion-accordion-group>
+                                <ion-accordion-group *ngIf="this.authService.isLogin()">
                                     <ion-accordion>
                                         <ion-item slot="header" color="primary" *ngIf="!item.attend">
                                             <ion-label>Assess Your Effort</ion-label>
