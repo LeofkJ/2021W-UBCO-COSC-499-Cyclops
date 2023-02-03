@@ -128,7 +128,7 @@ export class PageSpaceSuPage implements OnInit {
       <p> If you select: </p>
       <ul>
         <li>Not applicable: Stars are removed from the total</li>
-        <li>Not Doing it: Receive 0 stars</li>
+        <li>Not doing it: Receive 0 stars</li>
         <li>Working on it: Receive half of the stars</li>
         <li>Doing it: Receive all stars</li>
       </ul>
@@ -142,7 +142,7 @@ export class PageSpaceSuPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'alertSolutionContentDetails',
       message: description,
-      buttons: ['Continue']
+      buttons: ['Close']
     });
     await alert.present();
   }
