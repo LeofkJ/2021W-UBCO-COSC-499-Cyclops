@@ -50,9 +50,15 @@
             <ion-progress-bar type="indeterminate"></ion-progress-bar>
         </ng-container>
 
+        <ion-grid>
+            
+        </ion-grid>
+
         <!-- <ng-container *ngIf="displaySol && this.authService.isLogin()"> -->
         <ng-container *ngIf="displaySol">
-            <ion-row>
+
+            <ion-grid>
+                <ion-row>
 
                 <!-- desktop users -->
                 <ion-col size-xs="12" size-sm="5" size-md="4" size-lg="3" class="web-display">
@@ -225,8 +231,8 @@
 
                 <ion-col>
                     <ion-row>
-                        <ion-col *ngIf="this.authService.isAdmin()" class="ecoCardItem">
-                            <ion-fab horizontal="center" vertical="center" >
+                        <ion-col *ngIf="this.authService.isAdmin()" size-xs="12" size-sm="12" size-md="5" size-lg="4">
+                            <ion-fab horizontal="center" vertical="center">
                                 <ion-fab-button color="primary" (click)="addCard()">
                                     <!-- (click)="articleAddEvent()" -->
                                     <ion-icon name="add-circle-outline" size="large"></ion-icon>
@@ -259,7 +265,7 @@
                             </ion-card>
                         </ion-col>
 
-                        <ion-col *ngFor="let item of displaySol" class="ecoCardItem">
+                        <ion-col *ngFor="let item of displaySol" size-xs="12" size-sm="12" size-md="5" size-lg="4">
                             <ion-card class="solution" color='light'>
                                 <!--  *ngIf="item.id !" -->
                                 <ion-card-header>
@@ -355,6 +361,9 @@
                     </ion-row>
                 </ion-col>
             </ion-row>
+
+            </ion-grid>
+            
 
             <!-- solution display area -->
 
