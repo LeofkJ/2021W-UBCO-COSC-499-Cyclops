@@ -124,13 +124,13 @@ export class PageSpaceSuPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       message: `
-      <p> You can assess your effort to get score</p>
-      <p> If you choose: </p>
+      <p> Complete the solutions to create your score.</p>
+      <p> If you select: </p>
       <ul>
-        <li>Not applicable: Not count for score</li>
-        <li>Not Doing it: Get 0 score</li>
-        <li>Working on it: Get half of score</li>
-        <li>Doing it: Get all score</li>
+        <li>Not applicable: Stars are removed from the total</li>
+        <li>Not Doing it: Receive 0 stars</li>
+        <li>Working on it: Receive half of the stars</li>
+        <li>Doing it: Receive all stars</li>
       </ul>
     `,
       buttons: ['Ok']
@@ -260,15 +260,15 @@ export class PageSpaceSuPage implements OnInit {
 
   colorAssign(color: number) {
     if (color == 2) {
-      this.progressAlertMessage = "Doing it!"
+      this.progressAlertMessage = "Doing it"
       return 'success';
     }
     else if (color == 1) {
-      this.progressAlertMessage = "Working on it!"
+      this.progressAlertMessage = "Working on it"
       return 'warning';
     }
     else if (color == 0) {
-      this.progressAlertMessage = "Not doing it!"
+      this.progressAlertMessage = "Not doing it"
       return 'danger';
     }
     else {
