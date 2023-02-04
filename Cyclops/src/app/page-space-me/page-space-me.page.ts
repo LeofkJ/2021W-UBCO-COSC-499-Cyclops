@@ -337,6 +337,9 @@ export class PageSpaceMePage implements OnInit {
         });
 
     }
+    this.displaySol = this.localSol.filter(f => (this.ecoSolutionIdList.indexOf(f.id) > -1));
+    
+    this.displaySol.sort((a, b) => (a.star < b.star) ? 1 : -1);
 
   }
   assignCompletedList() {
@@ -369,12 +372,6 @@ export class PageSpaceMePage implements OnInit {
 
     // this.displaySol = this.localSol;
     // ----------------------
-    console.log(this.localSol);
-    console.log(this.ecoSolutionIdList);
-    this.displaySol = this.localSol.filter(f => (this.ecoSolutionIdList.indexOf(f.id) > -1));
-
-    // 00000000000
-    console.log(this.displaySol);
 
     /* console.log('loaded solution and user progress successfully merged', this.scoreArea); */
   }

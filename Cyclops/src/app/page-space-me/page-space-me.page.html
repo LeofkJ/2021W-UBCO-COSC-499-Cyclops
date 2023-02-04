@@ -50,8 +50,23 @@
         </ion-toolbar>
         <div [innerHTML]="contents.segment[status].segmentBody"> </div>
         <ng-container *ngIf="contents">
+            <ion-card class="card-web" color='light' *ngIf="this.status==this.contents.solSegment&&!this.authService.isLogin()">
+                <ion-card-header>
+                    <ion-card-title>
+                        <ng-container *ngIf="!this.authService.isLogin()">
+                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;">
+                                Please
+                            </ion-text>
+                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;" button routerLink="/login" color="primary">login</ion-text>
+                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;">
+                                to assess solutions and get a score
+                            </ion-text>
+                        </ng-container>
+                    </ion-card-title>
+                </ion-card-header>
+            </ion-card>
 
-            <ion-grid *ngIf="this.status==this.contents.solSegment&&this.authService.isLogin()">
+            <ion-grid *ngIf="this.status==this.contents.solSegment">
                 <ion-row>
                     <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let item of this.displaySol" class="ecoCardItem">
                         <ion-card class="solution" color='light'>
@@ -72,7 +87,7 @@
                                     {{item.section}}
                                 </ion-label>
                             </ion-card-content>
-                            <ion-accordion-group>
+                            <ion-accordion-group *ngIf="this.authService.isLogin()">
                                 <ion-accordion>
                                     <ion-item slot="header" color="primary" *ngIf="!item.attend">
                                         <ion-label>Assess Your Effort</ion-label>
@@ -106,6 +121,7 @@
 
                                 </ion-accordion>
                             </ion-accordion-group>
+                            
                             <!-- *ngIf="item.id != completedList[index]"  -->
                             <!-- checkDisplay(item.ecoId) -->
                             <!-- *ngIf="item.ecoId in completedList" -->
@@ -123,20 +139,6 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            <ion-card class="card-web" color='light' *ngIf="this.status==this.contents.solSegment&&!this.authService.isLogin()">
-                <ion-card-header>
-                    <ion-card-title>
-                        <ng-container *ngIf="!this.authService.isLogin()">
-                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;">
-                                <p>Please Login to Continue</p>
-                            </ion-text>
-                            <ion-text style="text-align:center; font-size:150%; font-weight: 700;" button routerLink="/login" color="primary">
-                                <p>Login</p>
-                            </ion-text>
-                        </ng-container>
-                    </ion-card-title>
-                </ion-card-header>
-            </ion-card>
         </ng-container>
         <div>
             <!-- <ion-button expand="block " (click)="openModal() " *ngIf="this.authService.isAdmin()">Edit Content
