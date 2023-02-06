@@ -406,7 +406,7 @@ export class PageSpaceSuPage implements OnInit {
 
 
   sortTypeInitialize() {
-    this.sortType = "starUp";
+    this.sortType = "starDown";
     this.section = "All";
   }
 

@@ -66,22 +66,22 @@
                         <ion-col>
                             <ion-radio-group [(ngModel)]="sortType" (ionChange)="updateDisplayList()">
                                 <ion-list-header>
-                                    <ion-label>Sort by</ion-label>
+                                    <ion-label>Order</ion-label>
                                 </ion-list-header>
                                 <ion-item>
-                                    <ion-label>Star Ascending</ion-label>
-                                    <ion-radio slot="start" value="starUp"></ion-radio>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label>Star Descending</ion-label>
+                                    <ion-label>Descending</ion-label>
                                     <ion-radio slot="start" value="starDown"></ion-radio>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-label>Solution Name</ion-label>
+                                    <ion-label>Ascending</ion-label>
+                                    <ion-radio slot="start" value="starUp"></ion-radio>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label>A-Z</ion-label>
                                     <ion-radio slot="start" value="sN"></ion-radio>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-label>Section Type</ion-label>
+                                    <ion-label>Section</ion-label>
                                     <ion-radio slot="start" value="sT"></ion-radio>
                                 </ion-item>
                             </ion-radio-group>
@@ -114,7 +114,7 @@
                         <ion-col>
                             <ion-radio-group [(ngModel)]="section" (ionChange)="updateDisplayList()">
                                 <ion-list-header>
-                                    <ion-label>Select by Section</ion-label>
+                                    <ion-label>Select Section</ion-label>
                                 </ion-list-header>
                                 <ion-item>
                                     <ion-label>All</ion-label>
@@ -157,25 +157,25 @@
                     <ion-accordion-group>
                         <ion-accordion>
                             <ion-item slot="header" color="light">
-                                <ion-label>Type Filter</ion-label>
+                                <ion-label>Order</ion-label>
                             </ion-item>
                             <ion-list slot="content">
                                 <ion-item>
                                     <ion-radio-group [(ngModel)]="sortType" (ionChange)="updateDisplayList()" class="ion-padding-bottom">
                                         <ion-item>
-                                            <ion-label>Star Ascending</ion-label>
+                                            <ion-label>Ascending</ion-label>
                                             <ion-radio slot="start" value="starUp"></ion-radio>
                                         </ion-item>
                                         <ion-item>
-                                            <ion-label>Star Descending</ion-label>
+                                            <ion-label>Descending</ion-label>
                                             <ion-radio slot="start" value="starDown"></ion-radio>
                                         </ion-item>
                                         <ion-item>
-                                            <ion-label>Solution Name</ion-label>
+                                            <ion-label>A-Z</ion-label>
                                             <ion-radio slot="start" value="sN"></ion-radio>
                                         </ion-item>
                                         <ion-item>
-                                            <ion-label>Section Type</ion-label>
+                                            <ion-label>Section</ion-label>
                                             <ion-radio slot="start" value="sT"></ion-radio>
                                         </ion-item>
                                     </ion-radio-group>
@@ -184,7 +184,7 @@
                         </ion-accordion>
                         <ion-accordion>
                             <ion-item slot="header" color="light">
-                                <ion-label>Completeness Filter</ion-label>
+                                <ion-label>Filter by completion</ion-label>
                             </ion-item>
                             <ion-list slot="content">
                                 <ion-item>
@@ -207,7 +207,7 @@
                         </ion-accordion>
                         <ion-accordion>
                             <ion-item slot="header" color="light">
-                                <ion-label>Section Filter</ion-label>
+                                <ion-label>Filter by section</ion-label>
                             </ion-item>
                             <ion-list slot="content">
                                 <ion-item>
