@@ -52,7 +52,6 @@ export class AddDataPage implements OnInit {
     //add doc in collection
     for (let article of this.articles) {
       this.firebaseService.addDataService("articles", article).then((res: any) => {
-        console.log(res);
       })
     }
     alert("successful");
@@ -75,7 +74,6 @@ export class AddDataPage implements OnInit {
 
 
       })
-      console.log(articles);
       //create sorted array 
       let col1 = [];
       let col2 = [];
@@ -91,7 +89,6 @@ export class AddDataPage implements OnInit {
         }
       }
       let cols = col1.concat(col2).concat(col3);
-      console.log(cols);
 
       //create readArticles field
       cols.forEach((articleDoc) => {
@@ -100,12 +97,9 @@ export class AddDataPage implements OnInit {
         let newData = { id: articleDoc.id, segment: segmentRead, depth: 0, currentSegment:0, progress: "unread" };
         data.push(newData);
       });
-      console.log(data);
       let users = this.firebaseService.getAllUsersService();
 
     (await users).forEach((userDoc) => {
-      console.log(userDoc.data());
-      console.log(data);
       this.firebaseService.addDataWithIdService('usersCollection', userDoc.id, { readArticles: data });
 
     });
@@ -121,7 +115,6 @@ export class AddDataPage implements OnInit {
   async initializeEcoS() {
     for (let ecoDataItem of ecoData) {
       this.firebaseService.addDataService("NewEcoSolution", ecoDataItem).then((res: any) => {
-        console.log(res);
       }).catch((error) => {
         console.log(error);
       })
@@ -132,20 +125,20 @@ export class AddDataPage implements OnInit {
   deleteAllData() {
     //delete all doc in collection
     for (let doc of this.docIds) {
-      this.firebaseService.deleteDocByIdService("articles", doc.docId).then((res: any) => console.log(res, " ", doc.docId))
+      this.firebaseService.deleteDocByIdService("articles", doc.docId)
     }
   }
 
   deleteUser() {
     //delete all doc in collection
     for (let doc of this.userIds) {
-      this.firebaseService.deleteDocByIdService("users", doc.userId).then((res: any) => console.log(res, " ", doc.userId))
+      this.firebaseService.deleteDocByIdService("users", doc.userId)
     }
   }
 
   deleteAllUserData() {
     for (let doc of this.userIds) {
-      this.firebaseService.deleteDocByIdService("usersCollection", doc.userId).then((res: any) => console.log(res, " ", doc.userId))
+      this.firebaseService.deleteDocByIdService("usersCollection", doc.userId)
     }
   }
   // get all docid from collection
@@ -177,7 +170,6 @@ export class AddDataPage implements OnInit {
   userInitialization() {
     for (let user of this.users) {
       this.firebaseService.addDataService("users", user).then((res: any) => {
-        console.log(res);
       })
     }
   }
@@ -195,7 +187,6 @@ export class AddDataPage implements OnInit {
 
         };
 
-        console.log(this.contents.segment.length);
       },
       err => {
         console.debug(err);

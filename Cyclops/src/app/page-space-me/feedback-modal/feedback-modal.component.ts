@@ -99,7 +99,6 @@ export class FeedbackModalComponent {
             this.feedbackForm.get('email').clearValidators();
             this.feedbackForm.get('email').updateValueAndValidity();
           } else if (contactValue === 'Both') {
-            console.log('add validator to email and phone validator');
             this.feedbackForm.get('email').setValidators(this.emailValidators);
             this.feedbackForm.get('phoneNumber').setValidators(this.phoneValidators);
           }
@@ -121,7 +120,6 @@ export class FeedbackModalComponent {
 
   async onSolution() {
     if (!this.feedbackForm.valid) {
-      console.log('All fields are required.')
       this.presentErrorAlert();
       return false;
     } else {
@@ -163,7 +161,6 @@ export class FeedbackModalComponent {
 
     this.firebaseService.addDataService('feedback',this.feedbackData).then((res: any) => {
       loading.dismiss();
-      console.log(res);
       /* console.log(this.feedback); */
       this.feedbackForm.reset();
       this.presentCompleteAlert();

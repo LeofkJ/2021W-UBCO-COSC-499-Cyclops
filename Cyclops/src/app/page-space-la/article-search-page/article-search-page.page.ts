@@ -37,7 +37,6 @@ export class ArticleSearchPagePage implements OnInit {
           solutions: e.payload.doc.data()['solutions'],
         }
       })
-      console.log("Search Field Loaded", this.searchField);
       this.articleCol = [[], [], []];
       for (this.i = 0; this.i < this.searchField.length; this.i++) {
         //load data into each column
@@ -51,7 +50,6 @@ export class ArticleSearchPagePage implements OnInit {
         }
       }
       this.i = 0;
-      console.log("independent data loaded!", this.articleCol);
     }, (err: any) => {
       console.log(err);
     })
@@ -66,7 +64,6 @@ export class ArticleSearchPagePage implements OnInit {
   }
   searchBarOnclick() {
     this.dummySearchField = this.searchField;
-    console.log("clicked");
   }
 
   ngOnInit() {

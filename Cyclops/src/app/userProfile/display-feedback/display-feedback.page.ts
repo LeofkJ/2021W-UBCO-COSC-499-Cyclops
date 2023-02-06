@@ -45,7 +45,6 @@ export class DisplayFeedbackPage implements OnInit {
 
         }
       })
-      console.log(this.feedback);
     }, (err: any) => {
       console.log(err);
     })

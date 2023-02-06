@@ -27,8 +27,6 @@ export class PageSpaceLaPage implements OnInit {
   dummySearchField: fetchArticle[];
   searchField: fetchArticle[];
   segmentChanged(ev: any) {
-    console.log('Segment changed', ev);
-    console.log('current segment is', this.status1);
   }
 
   constructor(
@@ -41,12 +39,10 @@ export class PageSpaceLaPage implements OnInit {
     this.status1 = "Articles p1";
     this.authService.afAuth.onAuthStateChanged(user=> {
       if (user) {
-        console.log('logged in:',user.uid);
         this.userId=user.uid;
         this.readArticles();
       } else{
         this.userId=undefined;
-        console.log('logged out, userId: ',this.userId);
       }
     });
   }
@@ -68,7 +64,6 @@ export class PageSpaceLaPage implements OnInit {
           order: e.payload.doc.data()['order'],
         }
       })
-      console.log("Search Field Loaded",this.searchField);
       this.articleCol = [[], [], []];
       for (this.i = 0; this.i < this.searchField.length; this.i++) {
         //load data into each column
@@ -87,8 +82,6 @@ export class PageSpaceLaPage implements OnInit {
       this.articleCol[1].sort((a, b) => a.order - b.order); 
       this.articleCol[2].sort((a, b) => a.order - b.order);
 
-
-      console.log("independent data loaded!", this.articleCol);
     }, (err: any) => {
       console.log(err);
     })
@@ -103,17 +96,13 @@ export class PageSpaceLaPage implements OnInit {
   }
   searchBarOnclick() {
     this.dummySearchField = this.searchField;
-    console.log("clicked");
   }
 
   readArticles() {
     const subscription = this.firebaseService.getUserDataByIdService(this.userId).subscribe(
       e => {
-        console.log('readarticles starting with ',this.userId,' and ',e.payload.data());
         if(e.payload.data()['readArticles']!=undefined){
-          console.log(e.payload.data()['readArticles']);
           this.userData = e.payload.data()['readArticles'];
-          console.log('userdata:',this.userData);
           this.totalArticles = this.userData.length;
           this.finishedArticles = 0;
           for (let i = 0; i < this.userData.length; i++) {
@@ -121,13 +110,11 @@ export class PageSpaceLaPage implements OnInit {
               ++this.finishedArticles;
             }
           }
-          console.log('current user progess:', this.finishedArticles, '/', this.totalArticles, (this.finishedArticles / this.totalArticles));
           this.articleProgress = this.finishedArticles / this.totalArticles;
         }
         
 
         if(this.userId==null||this.userId==undefined){
-          console.log('unsubscribing readArticles');
           subscription.unsubscribe();
         }
       },
@@ -182,7 +169,6 @@ export class PageSpaceLaPage implements OnInit {
     }).then(modalres => {
       modalres.present();
       modalres.onDidDismiss().then(res => {
-        console.log("cover modal dismiss!");
       })
 
     })
@@ -228,7 +214,6 @@ export class PageSpaceLaPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
       const loading = await this.loadingController.create({
         message: 'Please wait...',

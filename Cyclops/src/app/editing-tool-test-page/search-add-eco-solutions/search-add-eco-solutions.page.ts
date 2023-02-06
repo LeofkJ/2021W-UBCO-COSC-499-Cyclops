@@ -32,7 +32,6 @@ export class SearchAddEcoSolutionsPage implements OnInit {
           checked: false
         }
       })
-      console.log("Search Field Loaded", this.searchField);
       this.checkedIds = [];
       if (this.checkedSolutions) {
         for (let i = 0; i < this.checkedSolutions.length; i++) {
@@ -59,7 +58,6 @@ export class SearchAddEcoSolutionsPage implements OnInit {
 
   }
   searchBarOnclick() {
-    console.log("clicked");
   }
 
   ngOnInit() {

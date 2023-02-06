@@ -26,7 +26,6 @@ export class EcoAddPage implements OnInit {
       this.solutionDetail.section = this.selectionList[0];
       console.log(this.selectionList);
     }, (err: any) => {
-      console.log("Get section list error")
     })
     if (this.selectionList != null) {
       subscription.unsubscribe();
@@ -59,7 +58,6 @@ export class EcoAddPage implements OnInit {
   }
 
   async save() {
-    console.log('save to cloud',this.solutionDetail);
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       message: 'Do you want to save this solution to cloud?',
@@ -68,7 +66,6 @@ export class EcoAddPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel" || role == "backdrop") {
-      console.log("cancel!");
     } else {
       const loading = await this.loadingController.create({
         message: 'Please wait...',
@@ -90,7 +87,6 @@ export class EcoAddPage implements OnInit {
       // })
 
       this.firebaseService.addDataService("NewEcoSolution", this.solutionDetail).then((res: any) => {
-        console.log(res);
         loading.dismiss();
         this.modalController.dismiss();
       }).catch((error) => {

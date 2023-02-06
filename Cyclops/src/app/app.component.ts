@@ -13,7 +13,6 @@ export class AppComponent {
   constructor(public router: Router, public authService: AuthService) { }
 
   ngOnInit() {
-    console.log('this.router.url', this.router.url);
   }
 
   list = [
@@ -32,7 +31,6 @@ export class AppComponent {
     }
   ]
   menuClick() {
-    console.log('Split Pane Button on click, this.router.url', this.router.url);
   }
 
 }

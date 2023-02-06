@@ -72,7 +72,6 @@ export class EditingToolTestPagePage implements OnInit {
 
   updateDataById(docId, data) {
     this.firebaseService.updateDataByIdService(docId, data).then((res: any) => {
-      console.log(res);
     }).catch((error) => {
       this.alertMessage('Failed to save changes, Try again! ');
       console.log("error", error);
@@ -98,8 +97,6 @@ export class EditingToolTestPagePage implements OnInit {
           solSegment: e.payload.data()['solSegment']
         };
         this.checkedIds = this.contents.solutions;//contents.solutions hold the checkedIds
-        console.log("load editor data by id message from " + this.articleId);
-        console.log(this.contents);
         if (this.contents.segment.length == 0) {
           //this is persumably a new Segment with no segment component, so we increase a new one
           console.log("***Unexpected error: article with zero segments")
@@ -111,7 +108,6 @@ export class EditingToolTestPagePage implements OnInit {
         this.TitleInput = this.contents.segment[this.currentSeg].segmentTitle;
         // this.content.addCssClass("no-scroll");
         this.needSaving = false;
-        console.log("need saving to false from loadEditorDataById");
         // this.editorComponent.focus;
       },
       err => {
@@ -133,7 +129,6 @@ export class EditingToolTestPagePage implements OnInit {
           checked: false
         }
       })
-      console.log("all solutions loaded", this.allSolutions);
       /*
       this.checkedIds = [];
       if(this.checkedSolutions){
@@ -194,16 +189,13 @@ export class EditingToolTestPagePage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("yes it is cancel")
     }
-    console.log('onDidDismiss resolved with role', role);
 
   }
 
 
   public onChipClick(index: number) {
     // this.saveChangesLocal();
-    console.log("change segment to new page " + index);
     this.currentSeg = index;
 
     // this.model.editorData= this.contents[this.articleId].segment[this.currentSeg].segmentBody;
@@ -222,7 +214,6 @@ export class EditingToolTestPagePage implements OnInit {
       segmentBody: "Body Paragraph"
     }
     //add segment to contents
-    console.log("the current article id is: " + this.articleId);
     this.contents.segment.push({
       segmentTitle: "New Segment",
       segmentBody: "Body Paragraph"
@@ -246,18 +237,15 @@ export class EditingToolTestPagePage implements OnInit {
   }
 
   onTitleEditorChange() {
-    console.log("current title is: " + this.TitleInput);
     this.contents.segment[this.currentSeg].segmentTitle = this.TitleInput;
     // this.needSaving = true;
     // console.log("need Saving on Title Editor Change");
   }
   titleFocus() {//change saving state to open when title input focused
     this.needSaving = true;
-    console.log("title focus");
   }
   textAreaFocus() {
     this.needSaving = true;
-    console.log("text area focus");
   }
 
   updateArticle() {
@@ -274,14 +262,11 @@ export class EditingToolTestPagePage implements OnInit {
       await alert.present();
       const { role } = await alert.onDidDismiss();
       if (role == "cancel") {
-        console.log("cancel!");
       } else {
         this.navControl.back();
-        console.log("back success");
       }
     } else {
       this.navControl.back();
-      console.log("back success");
     }
 
   }
@@ -295,9 +280,7 @@ export class EditingToolTestPagePage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
-      console.log("remove segment article id: " + this.currentSeg);
       this.contents.segment.splice(this.currentSeg, 1);
       if (this.currentSeg == this.contents.solSegment) {
         this.contents.solSegment = -1;
@@ -316,7 +299,6 @@ export class EditingToolTestPagePage implements OnInit {
       this.updateArticle();
       // this.updateDataById(this.articleId, this.contents);
       // this.loadEditorDataById();
-      console.log("Delete Success");
       // this.displayMessage("Delete Success");
     }
   }
@@ -337,21 +319,16 @@ export class EditingToolTestPagePage implements OnInit {
     }).then(modalres => {
       modalres.present();
       modalres.onDidDismiss().then(res => {//res returns checked *IDS*
-        console.log("cover modal dismiss!", res['data']);
         this.checkedIds = res['data'];
         this.updateCheckedSolutions();//once checkedIds changed, update the displayed solution cards
         this.contents.solutions = this.checkedIds;//save checked *IDS* to database
         this.needSaving = true;
         if (this.contents.solutions) {
-          console.log('yes');
           if (this.contents.solutions.length != 0 && (this.contents.solSegment == undefined || (this.contents.solSegment != undefined&&this.contents.solSegment == -1))) {
-            console.log('sth selected and no eco segment yet');
             this.addSolutionsChip();
           } else if (this.contents.solutions.length != 0 && (this.contents.solSegment !== undefined && this.contents.solSegment != -1)) {//there is already one, move there
-            console.log('sth selected and eco segment already exists');
             this.currentSeg = this.contents.solSegment;
           } else if (this.contents.solutions.length == 0 && (this.contents.solSegment !== undefined && this.contents.solSegment != -1)) {//nothing selected but there is an eco tab
-            console.log('nothing selected, remove eco tab', this.contents.solSegment);
             this.removeArticle();
           }
         }
@@ -369,7 +346,6 @@ export class EditingToolTestPagePage implements OnInit {
       segmentBody: "Body Paragraph"
     }
     //add segment to contents
-    console.log("the current article id is: " + this.articleId);
     this.contents.segment.push({
       segmentTitle: "ECO Solutions",
       segmentBody: "Body Paragraph"
@@ -413,7 +389,6 @@ export class EditingToolTestPagePage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
       const loading = await this.loadingController.create({
         message: 'Please wait...',
@@ -424,16 +399,13 @@ export class EditingToolTestPagePage implements OnInit {
       // this.updateDataById(this.articleId, this.contents);
 
       this.firebaseService.updateDataByIdService(this.articleId, this.contents).then((res: any) => {
-        console.log(res);
         // this.reloadPage();
 
-        console.log("Changes saved to cloud!");
 
         this.displayMessage("Upload Success");
         loading.dismiss();
         //change saving state to close
         this.needSaving = false;
-        console.log("need saving to false");
       }).catch((error) => {
         loading.dismiss();
         this.alertMessage('Failed to save changes, Try again! ');

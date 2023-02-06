@@ -31,7 +31,6 @@ export class ArticleImagePage implements OnInit {
     }
     //set changes to local
     this.firebaseService.updateDataByIdService(this.articleId, contents).then((res: any) => {
-      console.log("Changes saved to cloud!", res);//log success mesage to console
       this.alertMess("Card Cover Change Success");//tell the user the success message
       loading.dismiss();//close loading animation
       //local saving

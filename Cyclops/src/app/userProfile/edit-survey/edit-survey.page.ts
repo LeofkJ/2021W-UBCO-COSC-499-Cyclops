@@ -20,7 +20,6 @@ export class EditSurveyPage implements OnInit {
 
 
   async loadSurveyData() {
-    console.log("run loadData");
     this.firebaseService.getSurveyService().subscribe((res) => {
       this.survey = res.map(e => {
         return {
@@ -29,7 +28,6 @@ export class EditSurveyPage implements OnInit {
           surveyLink: e.payload.doc.data()['surveyLink'],
         }
       })
-      console.log(this.survey);
     }, (err: any) => {
       console.log(err);
     })
@@ -58,14 +56,12 @@ export class EditSurveyPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         },{
           text: 'Save',
           handler: data => {
             if (data.surveyTitle!='' && data.surveyLink!='') {
               this.firebaseService.addDataService('survey', data).then((res: any) => {
-                console.log(res);
               }).catch((error) => {
                 console.log("error",error);
         
@@ -101,7 +97,6 @@ export class EditSurveyPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
 
       const loading = await this.loadingController.create({
@@ -112,7 +107,6 @@ export class EditSurveyPage implements OnInit {
       this.firebaseService.deleteDocByIdService('survey', docId).then((res: any) => {
         loading.dismiss();
         this.alertError('Successful!');
-        console.log(res);
       }).catch((error) => {
         loading.dismiss();
         this.alertError('Can not delete, Try again');

@@ -31,7 +31,7 @@ export class EcoEditPage implements OnInit {
       })
       /* console.log(this.sections); */
     }, (err: any) => {
-      console.log("Get section list error")
+      console.log("Get section list error", err)
     })
 
     if (this.selectionList != null) {
@@ -71,7 +71,6 @@ export class EcoEditPage implements OnInit {
   }
 
   async save() {
-    console.log('save changes to cloud!',this.ecoId);
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       message: 'Do you want to save all the changes to cloud?',
@@ -80,14 +79,12 @@ export class EcoEditPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel" || role == "backdrop") {
-      console.log("cancel!");
     } else {
       const loading = await this.loadingController.create({
         message: 'Please wait...',
       });
       loading.present();  // present loading animation
       this.firebaseService.updateEcoSolutionService(this.ecoId, this.solutionDetail).then((res: any) => {
-        console.log("Changes saved to cloud!", res);//log success mesage to console
         this.alertMess("Upload Success");//tell the user the success message
         loading.dismiss();//close loading animation
         //local saving

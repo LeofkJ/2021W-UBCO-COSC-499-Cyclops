@@ -77,13 +77,11 @@ export class FirebaseService {
   //append data to user document specified by userId
   async updateUserDataByIdService(userId, data) {
     const userDoc = doc(db, 'users', userId);
-    console.log('updating user:', userDoc.id, ' with:', data);
     setDoc(userDoc, data, { merge: true });//set new user information, merge:true specifies to amend and not overwrite document
   }
 
   async updateUserCollectionDataByIdService(userId, data) {
     const userDoc = doc(db, 'usersCollection', userId);
-    console.log('updating user:', userDoc.id, ' with:', data);
     setDoc(userDoc, data, { merge: true });//set new user information, merge:true specifies to amend and not overwrite document
   }
 

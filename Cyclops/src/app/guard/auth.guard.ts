@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
   // this guard check user is admin in or not.  if user is not admin, they can not go to some page
   constructor(public authService: AuthService,public alertController: AlertController,public router: Router,){}
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):Promise<boolean>{
-    console.log(this.authService.isLogin(),' ------  ', this.authService.isAdmin());
     if(!(this.authService.isLogin() && this.authService.isAdmin())){
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',

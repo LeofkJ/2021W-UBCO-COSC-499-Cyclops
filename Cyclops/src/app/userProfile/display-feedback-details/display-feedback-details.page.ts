@@ -39,7 +39,6 @@ export class DisplayFeedbackDetailsPage implements OnInit {
 
         };
         subscription.unsubscribe();
-        console.log('unsubscribe success, with this content loaded:', this.currentFeedback);
       },
       err => {
         console.debug(err);

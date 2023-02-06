@@ -59,24 +59,19 @@ export class PageSpaceMePage implements OnInit {
   ) {
     this.status = 0;
     this.docId = this.activatedrouter.snapshot.paramMap.get('docId');
-    //console.log("docid------",this.activatedrouter.snapshot.paramMap.get('docId'));
-    console.log(this.docId);
     this.loadDataById();//load article data
     this.authService.afAuth.onAuthStateChanged(user => {
       if (user) {
-        console.log('logged in:', user.uid);
         this.userId = user.uid;
         this.loadUserSegmentsById();//load all user segment data
       } else {
         this.userId = undefined;
-        console.log('logged out, userId: ', this.userId);
       }
     });
     this.contentLoading();
   }
 
   loadUserSegmentsById() {
-    console.log("run loadUserById()");
     const subscription = this.firebaseService.getUserDataByIdService(this.userId).subscribe(
       e => {
         if (e.payload.data()['readArticles'] != undefined) {
@@ -89,7 +84,6 @@ export class PageSpaceMePage implements OnInit {
           this.checkForScrollbar();
         }
         subscription.unsubscribe();
-        console.log('unsubscribe success, with this user segment content loaded:', this.currentSegments);
         //after subscription closed and segment content has been loaded, scrollbar can be checked
       },
       err => {
@@ -99,7 +93,6 @@ export class PageSpaceMePage implements OnInit {
 
   }
   loadDataById() {
-    console.log("run loadDataById()");
     const subscription = this.firebaseService.getDataByIdService(this.docId).subscribe(
       e => {
         this.contents = {
@@ -125,17 +118,14 @@ export class PageSpaceMePage implements OnInit {
         if (this.authService.isLogin()) {
           if (localStorage.getItem('forYou') == 'true') {
             localStorage.setItem('forYou', 'false');//reset foryou check
-            console.log('from for you');
             //get segment and depth
             const subscription = this.firebaseService.getUserDataByIdService(this.userId).subscribe(
               async e => {
                 if (e.payload.data()['readArticles'] != undefined) {
-                  console.log('readarticles found');
                   this.userData = e.payload.data()['readArticles'];
                   for (let i = 0; i < this.userData.length; i++) {
                     if (this.userData[i]['id'] == this.docId) {
                       this.status = this.userData[i]['currentSegment'];
-                      console.log(this.status);
                       //this.content.scrollToPoint(0, this.userData[i]['depth'] * 50);
 
                       break;
@@ -156,7 +146,6 @@ export class PageSpaceMePage implements OnInit {
 
 
         subscription.unsubscribe();
-        console.log('unsubscribe success, with this content loaded:', this.contents);
         if (this.contents.solutions) {
           for (let item of this.contents.solutions) {
             this.ecoSolutionIdList.push(item);
@@ -198,7 +187,6 @@ export class PageSpaceMePage implements OnInit {
   async segmentChanged(ev: any) {
     let scrollElement = await this.content.getScrollElement();
     this.articleHeight = scrollElement.scrollHeight - scrollElement.clientHeight
-    console.log('current segment status is', this.status);
     this.currentSegment = parseInt(this.status);
     this.authService.afAuth.onAuthStateChanged(user => {
       if (user) {
@@ -211,7 +199,6 @@ export class PageSpaceMePage implements OnInit {
 
   updateDataById(docId, data) {
     this.firebaseService.updateDataByIdService(docId, data).then((res: any) => {
-      console.log(res);
     })
 
     alert("successful");
@@ -256,7 +243,6 @@ export class PageSpaceMePage implements OnInit {
       this.updateFirestoreUserDepth();
 
       let completion = this.areAllTrue(this.currentSegments);
-      console.log('completion: ', completion);
       this.firebaseService.updateUserCollectionDataByIdService(this.userId, { latestRead: { id: this.docId, segment: this.currentSegment, depth: position, completed: completion } });
 
     }
@@ -281,7 +267,6 @@ export class PageSpaceMePage implements OnInit {
 
   }
   rangeChangeEvent(currentWeight, currentId) {
-    console.log("range change event\nthe new weight is:", currentWeight, '\nchange weight for article id:', currentId);
 
   }
   async displaySolutionDetail(description) {
@@ -298,7 +283,6 @@ export class PageSpaceMePage implements OnInit {
       let onChangeItem = this.userEcoItemList.find(i => i.ecoId == data.ecoId);//locates the onChange Item
       onChangeItem.weight = data.weight;//change the weight
     } else {
-      console.log(this.userEcoItemList);
       this.userEcoItemList.push(data);
     }
   }
@@ -343,7 +327,6 @@ export class PageSpaceMePage implements OnInit {
 
   }
   assignCompletedList() {
-    console.log("assign complete list")
     //this merges information from both lists: the solution list and the user list
     if (this.userEcoItemList == undefined) {
       this.userEcoItemList = this.userEcoItemListRemote;
@@ -414,7 +397,6 @@ export class PageSpaceMePage implements OnInit {
   }
   async submitEcoSolEvent(solutionWeight: number, solutionId: string, update: boolean) {
     const currentTime = new Date().getTime();
-    console.log("onSubmit", solutionId, this.userId, currentTime);
     const uploadData: userEcoItem = {//sol'n init
       time: currentTime,
       ecoId: solutionId,
@@ -432,7 +414,6 @@ export class PageSpaceMePage implements OnInit {
     });
     loading.present();  // present loading animation
     this.firebaseService.addUserEcoService(this.userId, userData).then(() => {
-      console.log('updated userName');
       loading.dismiss();
       this.assignCompletedList();//update the card looking and the score as well
       //this.updateDisplayList();
@@ -464,7 +445,6 @@ export class PageSpaceMePage implements OnInit {
 
       if (currentScrollDepth >= targetPercent) {
         let pageRead = true;
-        console.log(`This segment read, scrolled to ${targetPercent}% on `, this.currentSegment);
 
         // this ensures that the database is only changed if the page has been read and the database doesn't already say true
         if (pageRead && !this.currentSegments[this.currentSegment]) {
@@ -483,7 +463,6 @@ export class PageSpaceMePage implements OnInit {
     const scrollElement = await this.content.getScrollElement();
     this.hasScrollbar = scrollElement.scrollHeight > scrollElement.clientHeight;
     if (!this.hasScrollbar && !this.currentSegments[this.currentSegment]) {//if the database is marked as unread then update it
-      console.log('no scrolbar');
       this.currentSegments[this.currentSegment] = true;
       this.updateFirestoreUserSegments();
     }
@@ -508,7 +487,6 @@ export class PageSpaceMePage implements OnInit {
     for (let i = 0; i < this.userData.length; i++) {
       if (this.userData[i]['id'] == this.docId) {
         this.userData[i]['depth'] = this.segmentDepth[this.currentSegment];
-        console.log('cureentseg updates');
         this.userData[i]['currentSegment'] = this.currentSegment;
         this.firebaseService.updateUserCollectionDataByIdService(this.userId, { readArticles: this.userData });
       }
@@ -545,12 +523,8 @@ export class PageSpaceMePage implements OnInit {
           this.contents.image = res.data.image;
           this.contents.segment = res.data.segment;
           //update data here
-          console.log("have data" + this.contents[this.docId]);
-          console.log(res.data);
           this.updateDataById(this.docId, this.contents)
         } else {
-          console.log("no data ");
-          console.log(res.data);
         }
       })
 

@@ -119,7 +119,6 @@ export class AuthService {
             return (await (this.afAuth.currentUser)).sendEmailVerification()
               .then(() => {
                 loading.dismiss();
-                console.log("send email")
                 this.router.navigate(['verify-email']);
               })
             loading.dismiss();
@@ -163,9 +162,7 @@ export class AuthService {
               segment: e.payload.doc.data()['segment'],
             }
           })
-          console.log(articles);
           let readArticles = this.initializeUserReadArticles(articles);
-          console.log(readArticles);
           this.afs.collection("usersCollection").doc(result.user.uid)
             .set({
               readArticles: readArticles
@@ -212,7 +209,6 @@ export class AuthService {
       }
     }
     let cols = col1.concat(col2).concat(col3);
-    console.log('cols', cols);
 
     //create readArticles field
     cols.forEach((articleDoc) => {
@@ -221,7 +217,6 @@ export class AuthService {
       let newData = { id: articleDoc.id, segment: segmentRead, depth: 0, currentSegment: 0, progress: "unread" };
       data.push(newData);
     });
-    console.log(data);
     return data;
   }
 
@@ -234,7 +229,6 @@ export class AuthService {
     return (await (this.afAuth.currentUser)).sendEmailVerification()
       .then(() => {
         loading.dismiss();
-        console.log("send email")
         this.router.navigate(['verify-email']);
       })
   }
@@ -248,7 +242,6 @@ export class AuthService {
       .then(() => {
         loading.dismiss();
         this.VerificationMailAlert('A new verify email has been send to your email address');
-        console.log("re-send email");
 
       }).catch((error) => {
         loading.dismiss();
@@ -368,7 +361,6 @@ export class AuthService {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else { // if user confirm to logout
 
       const loading = await this.loadingController.create({
@@ -400,12 +392,10 @@ export class AuthService {
       const adminAccess = this.afs.collection("adminUsers", ref => ref.where('email', '==', JSON.parse(localStorage.getItem('user')).email)).snapshotChanges();
       const subscription = adminAccess.subscribe(res => {
         if (res.length > 0) {
-          console.log(" Match found.");
           localStorage.setItem('admin', JSON.stringify(true));
           subscription.unsubscribe();
           return true;
         } else {
-          console.log("Does not exist.");
           localStorage.setItem('admin', JSON.stringify(false));
           subscription.unsubscribe();
           return false;
@@ -415,7 +405,6 @@ export class AuthService {
     }
     else {
       localStorage.setItem('admin', JSON.stringify(false));
-      console.log("Have not logged in ");
       return false;
     }
   }
@@ -453,7 +442,6 @@ export class AuthService {
     };
 
     (await this.afAuth.currentUser).updateProfile(profile).then(() => {
-      console.log('updated userName');
       this.updateUserData();
       loading.dismiss();
     }).catch((error) => {
@@ -484,7 +472,6 @@ export class AuthService {
 
   getTime() {
     const myTimestamp = firebase.firestore.FieldValue.serverTimestamp();
-    console.log(myTimestamp);
 
 
   }

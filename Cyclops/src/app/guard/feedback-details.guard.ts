@@ -21,7 +21,6 @@ export class FeedbackDetailsGuard implements CanActivate {
     const accessUserUid = JSON.parse(localStorage.getItem('user')).uid
 
     if (!this.authService.isLogin() || (authorUserUid != accessUserUid)) {
-      console.log('no login or not match');
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         message: 'You do not have authorization to access this page',
@@ -34,7 +33,6 @@ export class FeedbackDetailsGuard implements CanActivate {
       }
     }
 
-    console.log('login');
     return this.authService.isLogin() && (authorUserUid == accessUserUid);
 
   }

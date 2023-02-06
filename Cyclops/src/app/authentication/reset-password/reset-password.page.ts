@@ -47,7 +47,6 @@ export class ResetPasswordPage implements OnInit {
       await alert.present();
       const { role } = await alert.onDidDismiss();
       if (role == "cancel") {
-        console.log("cancel!");
       } else {
         this.startTimer()
         this.authService.ForgotPassword(email);
@@ -61,7 +60,6 @@ export class ResetPasswordPage implements OnInit {
 
 
   startTimer() {
-    console.log('start')
     this.timeLeft = 20;
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {

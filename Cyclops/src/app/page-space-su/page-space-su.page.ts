@@ -68,11 +68,9 @@ export class PageSpaceSuPage implements OnInit {
 
     this.authService.afAuth.onAuthStateChanged(user => {
       if (user) {
-        console.log('logged in:', user.uid);
         this.userId = user.uid;
       } else {
         this.userId = 'null';
-        console.log('logged out, userId: ', this.userId);
       }
     });
 
@@ -239,7 +237,6 @@ export class PageSpaceSuPage implements OnInit {
   }
 
   progressTypeOnChange() {
-    console.log("current type is:", this.userProgressType);
     //code here
   }
 
@@ -248,8 +245,7 @@ export class PageSpaceSuPage implements OnInit {
   }
 
   rangeChangeEvent(currentWeight, currentId) {
-    console.log("range change event\nthe new weight is:", currentWeight, '\nchange weight for article id:', currentId);
-
+    
   }
 
   localWeightUpdate(currentWeight, currentId) {
@@ -282,7 +278,6 @@ export class PageSpaceSuPage implements OnInit {
     if (this.authService.isLogin()) {
       const subscription = this.firebaseService.getUserByIdService(this.userId).subscribe(
         e => {
-          console.log('subscription starts: ',e.payload.data()['userEcoSolutions']) ;
           if (e.payload.data()["userEcoSolutions"]!=undefined) {
             this.userEcoItemListRemote = e.payload.data()["userEcoSolutions"];
           }
@@ -296,7 +291,6 @@ export class PageSpaceSuPage implements OnInit {
           this.updateDisplayList();
 
           subscription.unsubscribe();
-           console.log('unsubscribe success', this.userEcoItemListRemote); 
         }, err => {
           console.log("test  ", err);
           this.userEcoItemListRemote = [];
@@ -311,14 +305,12 @@ export class PageSpaceSuPage implements OnInit {
       let onChangeItem = this.userEcoItemList.find(i => i.ecoId == data.ecoId);//locates the onChange Item
       onChangeItem.weight = data.weight;//change the weight
     } else {
-      console.log(this.userEcoItemList);
       this.userEcoItemList.push(data);
     }
   }
 
   async submitEcoSolEvent(solutionWeight: number, solutionId: string, update: boolean) {
     const currentTime = new Date().getTime();
-    console.log("onSubmit", solutionId, this.userId, currentTime);
     const uploadData: userEcoItem = {//sol'n init
       time: currentTime,
       ecoId: solutionId,
@@ -336,7 +328,6 @@ export class PageSpaceSuPage implements OnInit {
     });
     loading.present();  // present loading animation
     this.firebaseService.addUserEcoService(this.userId, userData).then(() => {
-      console.log('updated userName');
       loading.dismiss();
       this.assignCompletedList();//update the card looking and the score as well
       this.updateDisplayList();
@@ -353,20 +344,6 @@ export class PageSpaceSuPage implements OnInit {
 
   goSurvey() {
     this.router.navigateByUrl('tabs/page-space-me');
-  }
-
-  customFormatter(value: number) {
-
-    if (value == -1) {
-      return '\xa0\xa0Bad\xa0\xa0';
-    } else if (value == 0) {
-      return '\xa0\xa0Ok\xa0\xa0';
-    } else if (value == 1) {
-      return '\xa0\xa0Great!\xa0\xa0'
-    } else if (value == 2) {
-      return '\xa0\xa0Wonderful!\xa0\xa0'
-    }
-
   }
 
 
@@ -466,7 +443,6 @@ export class PageSpaceSuPage implements OnInit {
   }
 
   updateDisplayList() {
-    console.log("update display with rule:\nsort type:", this.sortType, '\nseciton name:', this.section, '\nprogress type:', this.userProgressType);
     // this display list handles everything:
     this.displaySol = this.localSol;
     // 1. attend type
@@ -479,7 +455,6 @@ export class PageSpaceSuPage implements OnInit {
 
   //admin functions
   editCard(id) {
-    console.log('edit', id);
 
     this.modalCtrol.create({
       component: EcoEditPage,
@@ -496,7 +471,6 @@ export class PageSpaceSuPage implements OnInit {
   }
 
   addCard() {
-    console.log('add');
 
     this.modalCtrol.create({
       component: EcoAddPage,
@@ -522,7 +496,7 @@ export class PageSpaceSuPage implements OnInit {
       message: 'Please wait...',
     });
     loading.present();  // present loading animation
-    this.firebaseService.deleteDocByIdService("NewEcoSolution", id).then((res: any) => console.log(res, " ", id),
+    this.firebaseService.deleteDocByIdService("NewEcoSolution", id).then((res: any) => {},
       (err: any) => { console.log(err); loading.dismiss(); });
     loading.dismiss();
     this.updateUserTotalEcoScore();
@@ -540,7 +514,6 @@ export class PageSpaceSuPage implements OnInit {
     const { role } = await alert.onDidDismiss();//fetch result
 
     if (role == "cancel" || role == "backdrop") {
-      console.log('cancel')
     } else {
 
       //remove locally first
@@ -552,14 +525,12 @@ export class PageSpaceSuPage implements OnInit {
   }
 
   solutionAddEvent() {
-    console.log("solution add event");
   }
 
   async editSection(item) {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    console.log("section on edit", item);
 
     var newSectionInputName: string = item;
     const alert = await this.alertController.create({
@@ -660,7 +631,6 @@ export class PageSpaceSuPage implements OnInit {
     });
 
     if (role == "cancel" || role == "backdrop") {
-      console.log('cancel')
     } else {
       loading.present();
       /* this.localSol = this.localSol.filter(f => (f.section != item));

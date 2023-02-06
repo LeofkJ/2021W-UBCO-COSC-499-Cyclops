@@ -36,17 +36,14 @@ export class ArticleMainComponent implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel" || role == "backdrop") {
-      console.log("cancel!");
     } else {
       const loading = await this.loadingController.create({
         message: 'Please wait...',
       });
       loading.present();  // present loading animation
 
-      console.log("remove", aIndex);
       this.contentCol.splice(aIndex, 1);//remove locally
       this.firebaseService.deleteDocByIdService("articles", content.id).then((res: any) => {
-        console.log(res, " ", content.id)
         this.removeUserReadArticles(content.id);
       }, (err: any) => {
         console.log(err); loading.dismiss();
@@ -60,23 +57,17 @@ export class ArticleMainComponent implements OnInit {
     let segments: any[] = [];
 
     (await users).forEach((userDoc) => {
-      console.log(userDoc.data());
-      console.log(docId);
       segments = userDoc.data()['readArticles'];
       for (let i = 0; i < segments.length; i++) {
 
         if (segments[i].id == docId) {
           segments.splice(i, 1);
-          console.log('spliced');
           break;
         }
         
       }
-      console.log(segments);
       if(userDoc.data()['latestRead']){
-        console.log('latestread exists');
         if (docId == userDoc.data()['latestRead'].id){
-          console.log('latestread undefined');
           this.firebaseService.updateUserCollectionDataByIdService(userDoc.id, {latestRead:deleteField() });
         }
       }
@@ -91,7 +82,6 @@ export class ArticleMainComponent implements OnInit {
   }
 
   articleAddEvent() {
-    console.log("add new artciel to col", this.contentCol);
     const newArticle: fetchArticle = {
       id: "",
       title: 'New Card Title',
@@ -112,7 +102,6 @@ export class ArticleMainComponent implements OnInit {
     this.contentCol.push(newArticle);
     //update all user profiles read article tracker with new article
     this.firebaseService.addDataService("articles", newArticle).then((res: any) => {
-      console.log(res.id);
       this.addUserReadArticles(res.id, newArticle.segment.length);
     })
 
@@ -122,7 +111,6 @@ export class ArticleMainComponent implements OnInit {
     let segments: any[] = [];
 
     (await users).forEach((userDoc) => {
-      console.log(userDoc.data());
       segments = userDoc.data()['readArticles'];
       let segmentRead = Array(segmentLength).fill(false);
       let newData = { id: docId, segment: segmentRead };
@@ -134,7 +122,6 @@ export class ArticleMainComponent implements OnInit {
 
 
   coverEditEvent(aId: string) {
-    console.log("cover event", aId);
     this.modalCtrol.create({
       component: ArticleImagePage,
       componentProps: {
@@ -143,14 +130,12 @@ export class ArticleMainComponent implements OnInit {
     }).then(modalres => {
       modalres.present();
       modalres.onDidDismiss().then(res => {
-        console.log("cover modal dismiss!");
       })
 
     })
   }
 
   articleEditEvent(aId: string) {
-    console.log("edit event", aId);
     this.modalCtrol.create({
       component: ArticleEditPagePage,
       componentProps: {
@@ -160,7 +145,6 @@ export class ArticleMainComponent implements OnInit {
       modalres.present();
 
       modalres.onDidDismiss().then(res => {
-        console.log("card modal dismiss!");
       })
 
     })

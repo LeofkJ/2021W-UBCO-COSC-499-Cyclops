@@ -49,15 +49,12 @@ export class WikiPage implements OnInit {
   }
   updateDataById(docId, data) {
     this.firebaseService.updateDataByIdService(docId, data).then((res: any) => {
-      console.log(res);
     })
   }
   startPreview() {
-    console.log("startPreview");
     this.editMode = false;
   }
   endPreview() {
-    console.log("endPreview");
     this.editMode = true;
   }
   loadEditorDataById() {
@@ -68,8 +65,6 @@ export class WikiPage implements OnInit {
           image: e.payload.data()['image'],
           segment: e.payload.data()['segment'],
         };
-        console.log("load editor data by id message from " + this.articleId);
-        console.log(this.contents);
         if (this.contents.segment.length == 0) {
           //this is persumably a new Segment with no segment component, so we increase a new one
           console.log("***Unexpected error: article with zero segments")
@@ -81,7 +76,6 @@ export class WikiPage implements OnInit {
 
         subscription.unsubscribe();
         this.needSaving = false;
-        console.log("need saving to false from loadEditorDataById");
         // this.editorComponent.focus;
 
       },
@@ -114,16 +108,13 @@ export class WikiPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("yes it is cancel")
     }
-    console.log('onDidDismiss resolved with role', role);
 
   }
 
 
   public onChipClick(index: number) {
     // this.saveChangesLocal();
-    console.log("change segment to new page " + index);
     this.currentSeg = index;
     this.editorComponent.editorInstance.setData(this.contents.segment[this.currentSeg].segmentBody)
   }
@@ -133,7 +124,6 @@ export class WikiPage implements OnInit {
       segmentTitle: "New Segment",
       segmentBody: "Body Paragraph"
     }
-    console.log("the current article id is: " + this.articleId);
     this.contents.segment.push({
       segmentTitle: "New Segment",
       segmentBody: "Body Paragraph"
@@ -147,13 +137,11 @@ export class WikiPage implements OnInit {
     // this.contents.segment[this.currentSeg].segmentBody = newSegmentBody;
     // console.log("Changes saved locally!");
     this.needSaving = true;
-    console.log("need Saving on Content Editor Change");
   }
 
   onTitleEditorChange(data: string) {
     // const newTitle: string = document.getElementById(data).value;
     this.needSaving = true;
-    console.log("need Saving on Title Editor Change", data);
   }
 
   updateArticle() {
@@ -169,10 +157,8 @@ export class WikiPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
       this.navControl.back();
-      console.log("back success");
     }
   }
 
@@ -185,16 +171,13 @@ export class WikiPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
-      console.log("remove segment article id: " + this.currentSeg);
       this.contents.segment.splice(this.currentSeg, 1);
       this.currentSeg = 0;
       if (this.contents.segment.length == 0) {
         this.onChipAdd();
       }
       this.updateArticle();
-      console.log("Delete Success");
     }
   }
 
@@ -212,15 +195,12 @@ export class WikiPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     if (role == "cancel") {
-      console.log("cancel!");
     } else {
       this.updateDataById(this.articleId, this.contents);
       // this.reloadPage();
-      console.log("Changes saved to cloud!");
       this.displayMessage("Upload Success");
       //change saving state to close
       this.needSaving = false;
-      console.log("need saving to false");
     }
   }
 
